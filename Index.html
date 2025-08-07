@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WillyBot ULTRA 5M</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #0f0;
+      text-align: center;
+      padding: 30px;
+    }
+    h1 {
+      font-size: 28px;
+      color: #0ff;
+    }
+    #temporizador {
+      font-size: 48px;
+      margin: 20px 0;
+    }
+    #señal {
+      font-size: 40px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+    #activo {
+      font-size: 18px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔮 WillyBot ULTRA 5M 🔥</h1>
+  <div id="activo">Activo: EUR/USD</div>
+  <div id="temporizador">05:00</div>
+  <div id="señal">Analizando...</div>
+
+  <script>
+    let tiempo = 300; // 5 minutos en segundos
+    let operacionActiva = false;
+
+    function generarSeñal() {
+      const señales = ["📈 CALL", "📉 PUT"];
+      const señal = señales[Math.floor(Math.random() * señales.length)];
+      document.getElementById("señal").innerText = señal;
+    }
+
+    function actualizarTemporizador() {
+      const minutos = String(Math.floor(tiempo / 60)).padStart(2, '0');
+      const segundos = String(tiempo % 60).padStart(2, '0');
+      document.getElementById("temporizador").innerText = `${minutos}:${segundos}`;
+
+      if (tiempo === 10) {
+        // Alerta sonora y visual 10 segundos antes
+        const alerta = new Audio("https://actions.google.com/sounds/v1/alarms/beep_short.ogg");
+        alerta.play();
+        document.body.style.backgroundColor = "#550000";
+      }
+
+      if (tiempo === 0) {
+        generarSeñal();
+        tiempo = 300;
+        document.body.style.backgroundColor = "#111";
+      } else {
+        tiempo--;
+      }
+    }
+
+    setInterval(actualizarTemporizador, 1000);
+  </script>
+</body>
+</html>
